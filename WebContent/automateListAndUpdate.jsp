@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Formulaire d'ajout d'automate</title>
+<title>Lister et Modifier automate (eventuellement)</title>
 </head>
 <body>
-<form:form method="POST" action="./autoAddService" modelAttribute="automate" >
+	Sample Bean: <%= automate %>
+<form:form method="POST" action="./autoListAndUpdateService" modelAttribute="automate">
     <form:label path="num_serie">Numero de serie</form:label>
     <form:input path="num_serie" />
     <br/>
@@ -25,7 +26,7 @@
     <form:input path="gps" />
     <br/>
     <form:label path="date_intervention">Date de derniere intervention</form:label>
-    <form:input type="date" path="date_intervention" />
+    <form:input path="date_intervention" />
     <br/>
     <form:label path="commentaires">Commentaires</form:label>
     <form:input path="commentaires" /> 

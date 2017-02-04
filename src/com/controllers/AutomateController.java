@@ -39,6 +39,7 @@ public class AutomateController {
  }
  @GET
  @Path("/automates/{id}/")
+ @Produces({"application/json","application/xml"})
  //@RequestMapping(value="/automateService/automate/list",params={"num"}, method = RequestMethod.GET, produces = "application/json")
  public Automate listAutomate(@PathParam("id")Integer num)
  { 

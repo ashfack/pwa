@@ -9,7 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +24,8 @@ import com.models.Automate;
 /**
  * Servlet implementation class test
  */
-@WebServlet("/autoService")
-public class AutomateServlet extends HttpServlet {
+@WebServlet("/autoListAndUpdateService")
+public class AutomateListAndUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	 AutomateController controller = new AutomateController();
@@ -33,7 +33,7 @@ public class AutomateServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AutomateServlet() {
+    public AutomateListAndUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,22 +44,50 @@ public class AutomateServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-    	System.out.println("Entered doGet test add automate");
+		
+    	System.out.println("Entered doGet list one automate");
+    	System.out.println(request.getParameter("id"));
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("UTF-8");
-		this.getServletContext().getRequestDispatcher( "/automateAddForm.jsp" ).forward( request, response );
+		try
+		{
+			URL url = new URL("http://localhost:8080/automate/cxf/automateservice/automates/"+request.getParameter("id"));
+			URLConnection connection = url.openConnection();
+			//connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setRequestProperty("Accept", "application/json");
+			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String s;
+			s=in.readLine();
+			System.out.println("Success to reach the Rest API");
+			in.close();
+			System.out.println("s is : " +s);
+			s = s.substring(12, s.length()-1);
+			System.out.println("s trimed is : " +s);
+			Gson gson = new Gson();
+			Automate automate = gson.fromJson(s, Automate.class);
+			System.out.println("object that is going to be set" + automate);
+			request.setAttribute("automate", automate);
+			this.getServletContext().getRequestDispatcher( "/automateListAndUpdate.jsp" ).forward( request, response );
+		}
+		catch (Exception e)
+		{
+			System.out.println("Fail to reach the Rest API " +e.getMessage());
+		}
+		
 	}	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("deprecation")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//doGet(request, response);
-		SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd");
-		System.out.println("Entered doPost test add automate number"+ request.getParameter("num_serie"));
+		System.out.println("Entered doPost list one automate"+ request.getParameter("num_serie"));
+		System.out.println(request.getParameter("date_intervention"));
+		SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss z YYYY", Locale.US);
 		Automate automate;
-		try {
+		// Reconstruction de l'automate à partir des paramètres
+		try 
+		{
 			automate = new Automate(Integer.parseInt(request.getParameter("num_serie")),
 					request.getParameter("type"),
 					request.getParameter("adresse"),
@@ -72,11 +100,11 @@ public class AutomateServlet extends HttpServlet {
 			System.out.println(e1.getMessage());
 			return;
 		}
-		System.out.println(automate);
+		System.out.println("ready to update : " +automate);
 		Gson gson = new Gson(); 
+		// Conversion en string jsonifie
 		String json = "{ \"Automate\":" +gson.toJson(automate)+"}";
-		//this.getServletContext().getRequestDispatcher( "./cxf/automateservice/automates/add");
-		
+		// Appel à l'API Rest pour mettre à jour
 		try
 		{
 			URL url = new URL("http://localhost:8080/automate/cxf/automateservice/automates/add");
@@ -95,7 +123,5 @@ public class AutomateServlet extends HttpServlet {
 		{
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
 		}
-		
 	}
-
 }
