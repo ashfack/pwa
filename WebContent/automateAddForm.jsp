@@ -8,7 +8,7 @@
 <title>Formulaire d'ajout d'automate</title>
 </head>
 <body>
-<form:form method="POST" action="./cxf/automateservice/automates/add" modelAttribute="automate" enctype="multipart/form-data">
+<form:form method="POST" action="./autoService" modelAttribute="automate" >
     <form:label path="num_serie">Numero de serie</form:label>
     <form:input path="num_serie" />
     <br/>
@@ -25,7 +25,7 @@
     <form:input path="gps" />
     <br/>
     <form:label path="date_intervention">Date de derniere intervention</form:label>
-    <form:input path="date_intervention" />
+    <form:input type="date" path="date_intervention" />
     <br/>
     <form:label path="commentaires">Commentaires</form:label>
     <form:input path="commentaires" /> 

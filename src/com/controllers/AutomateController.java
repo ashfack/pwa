@@ -1,7 +1,6 @@
 package com.controllers;
 import java.util.List;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -58,13 +57,12 @@ public class AutomateController {
  @POST
  @Path("/automates/add")
  @Produces({"application/json","application/xml"})
- @Consumes("multipart/form-data")
  //@RequestMapping(value="/automateService/automate/add", method = RequestMethod.POST)
  public void addAutomate(Automate automate)
  { 
 	 System.out.println("invoked in adding automate");
 	 System.out.println("l'automate" + automate);
-	 //this.automateService.persistAutomate(automate);
+	 this.automateService.persistAutomate(automate);
  }
  
  @RequestMapping(value="/automateService/automate/delete", method = RequestMethod.POST)
