@@ -10,36 +10,50 @@
 <title>Liste de tous les automates</title>
 </head>
 <body>
-	Sample Bean: <%= automate %>
-	<%-- <% 
+	<%-- Sample Bean: <%= automate %>
+	<%= request.getAttribute("automates") %> --%>
+	<% 
 		Gson gson = new Gson();
-		List<Automate> list = gson.fromJson((String)request.getAttribute("automates"), 
+		List<Automate> liste = gson.fromJson((String)request.getAttribute("automates"), 
 				new TypeToken<List<Automate>>(){}.getType());
-		%> --%>	
-	<%= request.getAttribute("automates") %>
-<form:form method="POST" action="./autoListService" modelAttribute="automate" >
-    <form:label path="num_serie">Numero de serie</form:label>
-    <form:input path="num_serie" />
-    <br/>
-    <form:label path="type">Type</form:label>
-    <form:input path="type" /> 
-    <br/>
-    <form:label path="adresse">Adresse</form:label>
-    <form:input path="adresse" /> 
-    <br/>
-    <form:label path="emplacement">Emplacement</form:label>
-    <form:input path="emplacement" />
-    <br/>
-    <form:label path="gps">Coordonnees GPS</form:label>
-    <form:input path="gps" />
-    <br/>
-    <form:label path="date_intervention">Date de derniere intervention</form:label>
-    <form:input path="date_intervention" />
-    <br/>
-    <form:label path="commentaires">Commentaires</form:label>
-    <form:input path="commentaires" /> 
-    <br/>
-    <input type="submit" value="Submit" />
-</form:form>
+		for(int i = 0; i < liste.size(); i++)
+		{
+			System.out.println("ho ho ho" + liste.get(i));
+		%>	
+		<form method="POST" action="./autoListService">
+			<table>
+				<tr>
+					<td>Num série : <%=liste.get(i).getNum_serie()%></td>
+				</tr>
+				<tr>
+					<td>Type : <%=liste.get(i).getType()%></td>
+				</tr>
+				<tr>
+					<td>Adresse : <%=liste.get(i).getAdresse()%></td>
+				</tr>
+				<tr>
+					<td>Emplacement : <%=liste.get(i).getEmplacement()%></td>
+				</tr>
+				<tr>
+					<td>Coordonnees GPS : <%=liste.get(i).getGps()%></td>
+				</tr>
+				<tr>
+					<td>Date de derniere intervention : <%=liste.get(i).getDate_intervention()%></td>
+				</tr>
+				<tr>
+					<td>Commentaires : <%=liste.get(i).getCommentaires()%></td>
+				</tr>
+				<tr>
+					<td>
+					<input type="hidden" value=<%=liste.get(i).getNum_serie() %> name="num_serie"></td>			
+				</tr>
+				<tr>
+					<td><input type="submit" value="Supprimer cet automate"></td>
+				</tr>
+			</table>
+		</form>
+		<%
+		}
+		%>
 </body>
 </html>

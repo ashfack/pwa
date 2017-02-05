@@ -56,6 +56,8 @@ public class AutomateListAllServlet extends HttpServlet {
 			System.out.println("Success to reach the Rest API");
 			in.close();
 			System.out.println("s retrieved is : " +s);
+			s = s.substring(12, s.length()-1);
+			System.out.println("s trimed is : " +s);
 			request.setAttribute("automates", s);
 			this.getServletContext().getRequestDispatcher( "/automateListAll.jsp" ).forward( request, response );
 		}
@@ -71,5 +73,6 @@ public class AutomateListAllServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Entered doPost list all automates");
+		System.out.println(request.getParameter("num_serie"));
 	}
 }
