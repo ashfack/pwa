@@ -9,6 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.controllers.AutomateController;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.models.Automate;
 
 /**
@@ -64,7 +66,7 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 			System.out.println("s is : " +s);
 			s = s.substring(12, s.length()-1);
 			System.out.println("s trimed is : " +s);
-			Gson gson = new Gson();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			Automate automate = gson.fromJson(s, Automate.class);
 			System.out.println("object that is going to be set" + automate);
 			request.setAttribute("automate", automate);
@@ -83,25 +85,30 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Entered doPost list one automate"+ request.getParameter("num_serie"));
 		System.out.println(request.getParameter("date_intervention"));
-		SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss z YYYY", Locale.US);
 		Automate automate;
+		//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US);
+		Date parsed;
 		// Reconstruction de l'automate à partir des paramètres
 		try 
 		{
+			parsed = format.parse(request.getParameter("date_intervention"));
+			java.sql.Date date_intervention = new java.sql.Date(parsed.getTime());
 			automate = new Automate(Integer.parseInt(request.getParameter("num_serie")),
 					request.getParameter("type"),
 					request.getParameter("adresse"),
 					request.getParameter("emplacement"),
 					request.getParameter("gps"),
-					formatter.parse(request.getParameter("date_intervention")),
+					date_intervention,
 					request.getParameter("commentaires")
 					);
 		} catch (NumberFormatException | ParseException e1) {
-			System.out.println(e1.getMessage());
+			e1.printStackTrace();
+			System.out.println("first fail " + e1.getMessage());
 			return;
 		}
 		System.out.println("ready to update : " +automate);
-		Gson gson = new Gson(); 
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create(); 
 		// Conversion en string jsonifie
 		String json = "{ \"Automate\":" +gson.toJson(automate)+"}";
 		// Appel à l'API Rest pour mettre à jour

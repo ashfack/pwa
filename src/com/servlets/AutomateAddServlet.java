@@ -9,6 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.models.Automate;
 
 /**
@@ -51,17 +53,20 @@ public class AutomateAddServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Entered doPost test add automate number"+ request.getParameter("num_serie"));
-		SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date parsed;
 		// Reconstruction de l'automate
 		Automate automate;
 		try 
 		{
+			parsed = format.parse(request.getParameter("date_intervention"));
+			java.sql.Date date_intervention = new java.sql.Date(parsed.getTime());
 			automate = new Automate(Integer.parseInt(request.getParameter("num_serie")),
 					request.getParameter("type"),
 					request.getParameter("adresse"),
 					request.getParameter("emplacement"),
 					request.getParameter("gps"),
-					formatter.parse(request.getParameter("date_intervention")),
+					date_intervention,
 					request.getParameter("commentaires")
 					);
 		} catch (NumberFormatException | ParseException e1) {
@@ -69,9 +74,11 @@ public class AutomateAddServlet extends HttpServlet {
 			return;
 		}
 		System.out.println(automate);
-		Gson gson = new Gson(); 
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create(); 
 		// Conversion de l'automate en chaine jsonifié
+//		String json = "{ \"Automate\":" +gson.toJson(automate)+"}";
 		String json = "{ \"Automate\":" +gson.toJson(automate)+"}";
+		System.out.println("chaine json dentreee a l'api " + json);
 		// Appel à l'API Rest
 		try
 		{

@@ -25,7 +25,7 @@
     <form:input path="gps" />
     <br/>
     <form:label path="date_intervention">Date de derniere intervention</form:label>
-    <form:input type="date" path="date_intervention" />
+    <form:input path="date_intervention" />
     <br/>
     <form:label path="commentaires">Commentaires</form:label>
     <form:input path="commentaires" /> 
