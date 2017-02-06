@@ -8,30 +8,44 @@
 <title>Lister et Modifier automate (eventuellement)</title>
 </head>
 <body>
-	Sample Bean: <%= automate %>
-<form:form method="POST" action="./autoListAndUpdateService" modelAttribute="automate">
-    <form:label path="num_serie">Numero de serie</form:label>
-    <form:input path="num_serie" />
-    <br/>
-    <form:label path="type">Type</form:label>
-    <form:input path="type" /> 
-    <br/>
-    <form:label path="adresse">Adresse</form:label>
-    <form:input path="adresse" /> 
-    <br/>
-    <form:label path="emplacement">Emplacement</form:label>
-    <form:input path="emplacement" />
-    <br/>
-    <form:label path="gps">Coordonnees GPS</form:label>
-    <form:input path="gps" />
-    <br/>
-    <form:label path="date_intervention">Date de derniere intervention</form:label>
-    <form:input path="date_intervention" />
-    <br/>
-    <form:label path="commentaires">Commentaires</form:label>
-    <form:input path="commentaires" /> 
-    <br/>
-    <input type="submit" value="Submit" />
-</form:form>
+	<% if (request.getParameter("id") != null) 
+	{
+		%>
+		Sample Bean: <%= automate %>
+		<form:form method="POST" action="./autoListAndUpdateService" modelAttribute="automate">
+		    <form:label path="num_serie">Numero de serie</form:label>
+		    <form:input path="num_serie" />
+		    <br/>
+		    <form:label path="type">Type</form:label>
+		    <form:input path="type" /> 
+		    <br/>
+		    <form:label path="adresse">Adresse</form:label>
+		    <form:input path="adresse" /> 
+		    <br/>
+		    <form:label path="emplacement">Emplacement</form:label>
+		    <form:input path="emplacement" />
+		    <br/>
+		    <form:label path="gps">Coordonnees GPS</form:label>
+		    <form:input path="gps" />
+		    <br/>
+		    <form:label path="date_intervention">Date de derniere intervention</form:label>
+		    <form:input path="date_intervention" />
+		    <br/>
+		    <form:label path="commentaires">Commentaires</form:label>
+		    <form:input path="commentaires" /> 
+		    <br/>
+		    <input type="submit" value="Submit" />
+		</form:form>
+	<%		
+	} else {
+		%>
+		<form method="GET" action="./autoListAndUpdateService">
+			<input type="text" name="id"/>
+			<input type="submit" value="Rechercher cet automate">
+		</form>	
+	<%	
+	}
+	%>
+	
 </body>
 </html>

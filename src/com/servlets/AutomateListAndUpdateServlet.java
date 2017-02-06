@@ -49,6 +49,10 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 		
     	System.out.println("Entered doGet list one automate");
     	System.out.println(request.getParameter("id"));
+    	if (request.getParameter("id") == null)
+    	{
+			this.getServletContext().getRequestDispatcher( "/automateListAndUpdate.jsp" ).forward( request, response );
+    	}
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("UTF-8");
 		try
@@ -129,6 +133,7 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 		catch (Exception e)
 		{
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
-		}
+		} 
+
 	}
 }
