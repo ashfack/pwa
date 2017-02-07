@@ -39,7 +39,7 @@
         <property name="montantVentes" type="java.lang.Integer">
             <column name="montant_ventes" />
         </property>
-        <set name="ARapportProduits" table="a_automate_produit" inverse="true" lazy="true" fetch="select">
+        <set name="ARapportProduits" table="a_rapport_produit" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="rapport_id" not-null="true" />
                 <column name="num_serie" not-null="true" />

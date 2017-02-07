@@ -128,7 +128,7 @@ public class Automate implements java.io.Serializable {
 	public String toString() {
 		return "Automate [numSerie=" + numSerie + ", type=" + type + ", adresse=" + adresse + ", emplacement="
 				+ emplacement + ", gps=" + gps + ", dateIntervention=" + dateIntervention + ", commentaires="
-				+ commentaires + ", rapports=" + rapports + "]";
+				+ commentaires + "]";
 	}
 	
 

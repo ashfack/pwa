@@ -49,6 +49,12 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
     </jaxrs:serviceBeans>
   </jaxrs:server>
   
+    <jaxrs:server id="RapportController" address="/rapportservice/">
+    <jaxrs:serviceBeans>
+      <bean class="com.controllers.RapportController" />
+    </jaxrs:serviceBeans>
+  </jaxrs:server>
+  
   <!-- Datasource -->
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
@@ -56,24 +62,13 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<beans:property name="url"
 			value="jdbc:mysql://localhost:3306/pwa" />
 		<beans:property name="username" value="root" />
-		<beans:property name="password" value="" />
+		<beans:property name="password" value="pfeconix" />
 	</beans:bean>
 
 	<!-- Hibernate 4 SessionFactory Bean definition -->
 	<beans:bean id="hibernate4AnnotatedSessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
-		<!-- <beans:property name="annotatedClasses">
-			<beans:list>
-				<beans:value>com.models.Automate</beans:value>
-				<beans:value>com.models.Erreur</beans:value>
-				<beans:value>com.models.AAutomateProduit</beans:value>
-				<beans:value>com.models.ErreurId</beans:value>
-				<beans:value>com.models.Produit</beans:value>
-				<beans:value>com.models.Rapport</beans:value>
-				<beans:value>com.models.RapportId</beans:value>
-			</beans:list>
-		</beans:property> -->
 		<beans:property name="hibernateProperties">
 			<beans:props>
 				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
@@ -103,20 +98,24 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<beans:property name="automateHome" ref="automateHome"></beans:property>
 	</beans:bean>
 	
-	<beans:bean id="ARapportProduitHome" class="com.dao.ARapportProduitHome">
+	<beans:bean id="aRapportProduitHome" class="com.dao.ARapportProduitHome">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 	
-	<beans:bean id="ErreurHome" class="com.dao.ErreurHome">
+	<beans:bean id="erreurHome" class="com.dao.ErreurHome">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 	
-	<beans:bean id="ProduitHome" class="com.dao.ProduitHome">
+	<beans:bean id="produitHome" class="com.dao.ProduitHome">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 	
-	<beans:bean id="RapportHome" class="com.dao.RapportHome">
+	<beans:bean id="rapportHome" class="com.dao.RapportHome">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	
+	<beans:bean id="rapportHomeService" class="com.services.RapportServiceImplHome">
+		<beans:property name="rapportHome" ref="rapportHome"></beans:property>
 	</beans:bean>
 	
 	<context:component-scan base-package="com.controllers" />

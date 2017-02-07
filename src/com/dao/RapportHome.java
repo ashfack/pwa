@@ -1,12 +1,17 @@
 package com.dao;
 // Generated 7 f�vr. 2017 11:34:39 by Hibernate Tools 5.2.0.Beta1
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 
 import com.models.Rapport;
@@ -19,6 +24,7 @@ import com.models.RapportId;
  */
 public class RapportHome {
 
+	private static final String HQL_SELECT_ALL = "FROM Rapport";
 	private static final Log log = LogFactory.getLog(RapportHome.class);
 
 	private SessionFactory sessionFactory;
@@ -113,5 +119,35 @@ public class RapportHome {
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Rapport> listRapports() {
+		log.debug("finding Rapport instance by example");
+		try {
+			Session session = this.sessionFactory.openSession();
+			Transaction transaction = null;
+			List<Rapport> rapportList = new ArrayList<Rapport>();
+			Query requeteLister = session.createQuery(HQL_SELECT_ALL);
+
+			try{
+				transaction = session.beginTransaction();
+				rapportList = requeteLister.list();
+			}catch(HibernateException he){
+				if (transaction != null) transaction.rollback();
+				he.printStackTrace();
+			}finally{
+				session.close();
+			}
+
+			return rapportList;
+		} catch (RuntimeException re) {
+			log.error("find by example failed", re);
+			throw re;
+		}
+	}
+	
+	public void update(Rapport rapport) {
+		this.persist(rapport);
 	}
 }
