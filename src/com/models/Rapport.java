@@ -24,7 +24,7 @@ public class Rapport implements java.io.Serializable {
 	private String cb;
 	private String cbSc;
 	private Integer montantVentes;
-	private Set<AAutomateProduit> AAutomateProduits = new HashSet<AAutomateProduit>(0);
+	private Set<ARapportProduit> ARapportProduits = new HashSet<ARapportProduit>(0);
 	private Set<Erreur> erreurs = new HashSet<Erreur>(0);
 
 	public Rapport() {
@@ -43,7 +43,7 @@ public class Rapport implements java.io.Serializable {
 	}
 
 	public Rapport(RapportId id, Automate automate, Date dateGeneration, String statutFonctionnement, String etat,
-			Integer temperature, String monnayeur, String cb, String cbSc, Integer montantVentes, Set<AAutomateProduit> AAutomateProduits,
+			Integer temperature, String monnayeur, String cb, String cbSc, Integer montantVentes, Set<ARapportProduit> ARapportProduits,
 			Set<Erreur> erreurs) {
 		this.id = id;
 		this.automate = automate;
@@ -55,7 +55,7 @@ public class Rapport implements java.io.Serializable {
 		this.cb = cb;
 		this.cbSc = cbSc;
 		this.montantVentes = montantVentes;
-		this.AAutomateProduits = AAutomateProduits;
+		this.ARapportProduits = ARapportProduits;
 		this.erreurs = erreurs;
 	}
 
@@ -139,12 +139,12 @@ public class Rapport implements java.io.Serializable {
 		this.montantVentes = montantVentes;
 	}
 
-	public Set<AAutomateProduit> getAAutomateProduits() {
-		return this.AAutomateProduits;
+	public Set<ARapportProduit> getARapportProduits() {
+		return this.ARapportProduits;
 	}
 
-	public void setAAutomateProduits(Set<AAutomateProduit> AAutomateProduits) {
-		this.AAutomateProduits = AAutomateProduits;
+	public void setARapportProduits(Set<ARapportProduit> ARapportProduits) {
+		this.ARapportProduits = ARapportProduits;
 	}
 
 	public Set<Erreur> getErreurs() {

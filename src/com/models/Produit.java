@@ -15,7 +15,7 @@ public class Produit implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private String nom;
 	private String type;
-	private Set<AAutomateProduit> AAutomateProduits = new HashSet<AAutomateProduit>(0);
+	private Set<ARapportProduit> ARapportsProduits = new HashSet<ARapportProduit>(0);
 
 	public Produit() {
 	}
@@ -25,10 +25,8 @@ public class Produit implements java.io.Serializable {
 		this.type = type;
 	}
 
-	public Produit(String nom, String type, Set<AAutomateProduit> AAutomateProduits) {
 		this.nom = nom;
 		this.type = type;
-		this.AAutomateProduits = AAutomateProduits;
 	}
 
 	public String getNom() {
@@ -47,12 +45,9 @@ public class Produit implements java.io.Serializable {
 		this.type = type;
 	}
 
-	public Set<AAutomateProduit> getAAutomateProduits() {
-		return this.AAutomateProduits;
+		return this.ARapportsProduits;
 	}
 
-	public void setAAutomateProduits(Set<AAutomateProduit> AAutomateProduits) {
-		this.AAutomateProduits = AAutomateProduits;
 	}
 
 }

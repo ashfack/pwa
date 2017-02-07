@@ -87,7 +87,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<beans:property name="mappingResources">
         	<beans:list>
 				<beans:value>com/hibernate/Produit.hbm.xml</beans:value>
-		        <beans:value>com/hibernate/AAutomateProduit.hbm.xml</beans:value>
+		        <beans:value>com/hibernate/ARapportProduit.hbm.xml</beans:value>
 		        <beans:value>com/hibernate/Rapport.hbm.xml</beans:value>
 		        <beans:value>com/hibernate/Automate.hbm.xml</beans:value>
 		        <beans:value>com/hibernate/Erreur.hbm.xml</beans:value>
@@ -103,7 +103,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<beans:property name="automateHome" ref="automateHome"></beans:property>
 	</beans:bean>
 	
-	<beans:bean id="AAutomateProduitHome" class="com.dao.AAutomateProduitHome">
+	<beans:bean id="ARapportProduitHome" class="com.dao.ARapportProduitHome">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 	

@@ -9,17 +9,17 @@ import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 
-import com.models.AAutomateProduit;
-import com.models.AAutomateProduitId;
+import com.models.ARapportProduit;
+import com.models.ARapportProduitId;
 
 /**
- * Home object for domain model class AAutomateProduit.
- * @see com.models.AAutomateProduit
+ * Home object for domain model class ARapportProduit.
+ * @see com.models.ARapportProduit
  * @author Hibernate Tools
  */
-public class AAutomateProduitHome {
+public class ARapportProduitHome {
 
-	private static final Log log = LogFactory.getLog(AAutomateProduitHome.class);
+	private static final Log log = LogFactory.getLog(ARapportProduitHome.class);
 
 	private SessionFactory sessionFactory;
 
@@ -28,8 +28,8 @@ public class AAutomateProduitHome {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void persist(AAutomateProduit transientInstance) {
-		log.debug("persisting AAutomateProduit instance");
+	public void persist(ARapportProduit transientInstance) {
+		log.debug("persisting ARapportProduit instance");
 		try {
 			sessionFactory.openSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -39,8 +39,8 @@ public class AAutomateProduitHome {
 		}
 	}
 
-	public void attachDirty(AAutomateProduit instance) {
-		log.debug("attaching dirty AAutomateProduit instance");
+	public void attachDirty(ARapportProduit instance) {
+		log.debug("attaching dirty ARapportProduit instance");
 		try {
 			sessionFactory.openSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -51,8 +51,8 @@ public class AAutomateProduitHome {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void attachClean(AAutomateProduit instance) {
-		log.debug("attaching clean AAutomateProduit instance");
+	public void attachClean(ARapportProduit instance) {
+		log.debug("attaching clean ARapportProduit instance");
 		try {
 			sessionFactory.openSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -62,8 +62,8 @@ public class AAutomateProduitHome {
 		}
 	}
 
-	public void delete(AAutomateProduit persistentInstance) {
-		log.debug("deleting AAutomateProduit instance");
+	public void delete(ARapportProduit persistentInstance) {
+		log.debug("deleting ARapportProduit instance");
 		try {
 			sessionFactory.openSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -73,10 +73,10 @@ public class AAutomateProduitHome {
 		}
 	}
 
-	public AAutomateProduit merge(AAutomateProduit detachedInstance) {
-		log.debug("merging AAutomateProduit instance");
+	public ARapportProduit merge(ARapportProduit detachedInstance) {
+		log.debug("merging ARapportProduit instance");
 		try {
-			AAutomateProduit result = (AAutomateProduit) sessionFactory.openSession().merge(detachedInstance);
+			ARapportProduit result = (ARapportProduit) sessionFactory.openSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -85,11 +85,11 @@ public class AAutomateProduitHome {
 		}
 	}
 
-	public AAutomateProduit findById(AAutomateProduitId id) {
-		log.debug("getting AAutomateProduit instance with id: " + id);
+	public ARapportProduit findById(ARapportProduitId id) {
+		log.debug("getting ARapportProduit instance with id: " + id);
 		try {
-			AAutomateProduit instance = (AAutomateProduit) sessionFactory.openSession()
-					.get("com.models.AAutomateProduit", id);
+			ARapportProduit instance = (ARapportProduit) sessionFactory.openSession()
+					.get("com.models.ARapportProduit", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -102,11 +102,11 @@ public class AAutomateProduitHome {
 		}
 	}
 
-	public List<AAutomateProduit> findByExample(AAutomateProduit instance) {
-		log.debug("finding AAutomateProduit instance by example");
+	public List<ARapportProduit> findByExample(ARapportProduit instance) {
+		log.debug("finding ARapportProduit instance by example");
 		try {
 			@SuppressWarnings("unchecked")
-			List<AAutomateProduit> results = (List<AAutomateProduit>)sessionFactory.openSession().createCriteria("com.models.AAutomateProduit")
+			List<ARapportProduit> results = (List<ARapportProduit>)sessionFactory.openSession().createCriteria("com.models.ARapportProduit")
 					.add(Example.create(instance)).list();
 			log.debug("find by example successful, result size: " + results.size());
 			return results;
