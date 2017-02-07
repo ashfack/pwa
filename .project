@@ -63,4 +63,11 @@
 		<nature>org.jboss.tools.ws.jaxrs.nature</nature>
 		<nature>org.hibernate.eclipse.console.hibernateNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/hibernate.cfg.xml</name>
+			<type>1</type>
+			<location>C:/Users/abdou/Desktop/D/PWA/pwa/WebContent/WEB-INF/web.xml</location>
+		</link>
+	</linkedResources>
 </projectDescription>

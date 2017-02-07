@@ -63,31 +63,64 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 	<beans:bean id="hibernate4AnnotatedSessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
-		<beans:property name="annotatedClasses">
+		<!-- <beans:property name="annotatedClasses">
 			<beans:list>
 				<beans:value>com.models.Automate</beans:value>
+				<beans:value>com.models.Erreur</beans:value>
+				<beans:value>com.models.AAutomateProduit</beans:value>
+				<beans:value>com.models.ErreurId</beans:value>
+				<beans:value>com.models.Produit</beans:value>
+				<beans:value>com.models.Rapport</beans:value>
+				<beans:value>com.models.RapportId</beans:value>
 			</beans:list>
-		</beans:property>
+		</beans:property> -->
 		<beans:property name="hibernateProperties">
 			<beans:props>
-				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
-				</beans:prop>
+				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>
 				<beans:prop key="hibernate.enable_lazy_load_no_trans">true</beans:prop>
+				<beans:prop key="hibernate.bytecode.use_reflection_optimizer">false</beans:prop>
+		        <beans:prop key="hibernate.search.autoregister_listeners">true</beans:prop>
+		        <beans:prop key="hibernate.validator.apply_to_ddl">false</beans:prop>
 			</beans:props>
 		</beans:property>
+		<beans:property name="mappingResources">
+        	<beans:list>
+				<beans:value>com/hibernate/Produit.hbm.xml</beans:value>
+		        <beans:value>com/hibernate/AAutomateProduit.hbm.xml</beans:value>
+		        <beans:value>com/hibernate/Rapport.hbm.xml</beans:value>
+		        <beans:value>com/hibernate/Automate.hbm.xml</beans:value>
+		        <beans:value>com/hibernate/Erreur.hbm.xml</beans:value>
+		    </beans:list>    
+		</beans:property>	
 	</beans:bean>
 	
-	<beans:bean id="automateDAO" class="com.dao.AutomateDAOImpl">
+	<beans:bean id="automateHome" class="com.dao.AutomateHome">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 	
-	<beans:bean id="automateService" class="com.services.AutomateServiceImpl">
-		<beans:property name="automateDAO" ref="automateDAO"></beans:property>
+	<beans:bean id="automateHomeService" class="com.services.AutomateServiceImplHome">
+		<beans:property name="automateHome" ref="automateHome"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="AAutomateProduitHome" class="com.dao.AAutomateProduitHome">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	
+	<beans:bean id="ErreurHome" class="com.dao.ErreurHome">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	
+	<beans:bean id="ProduitHome" class="com.dao.ProduitHome">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	
+	<beans:bean id="RapportHome" class="com.dao.RapportHome">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 	
 	<context:component-scan base-package="com.controllers" />
-	
+	<context:component-scan base-package="com.tests" />
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">

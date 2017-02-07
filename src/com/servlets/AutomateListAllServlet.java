@@ -73,6 +73,6 @@ public class AutomateListAllServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Entered doPost list all automates");
-		System.out.println(request.getParameter("num_serie"));
+		System.out.println(request.getParameter("numSerie"));
 	}
 }

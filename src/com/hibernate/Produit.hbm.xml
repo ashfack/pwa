@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 7 f?vr. 2017 11:34:39 by Hibernate Tools 5.2.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.models.Produit" table="produit" catalog="pwa" optimistic-lock="version">
+        <id name="nom" type="string">
+            <column name="nom" length="100" />
+            <generator class="assigned" />
+        </id>
+        <property name="type" type="string">
+            <column name="type" length="15" not-null="true" />
+        </property>
+        <set name="AAutomateProduits" table="a_automate_produit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="produit_nom" length="100" not-null="true" />
+            </key>
+            <one-to-many class="com.models.AAutomateProduit" />
+        </set>
+    </class>
+</hibernate-mapping>

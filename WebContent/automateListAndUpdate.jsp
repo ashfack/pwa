@@ -13,8 +13,8 @@
 		%>
 		Sample Bean: <%= automate %>
 		<form:form method="POST" action="./autoListAndUpdateService" modelAttribute="automate">
-		    <form:label path="num_serie">Numero de serie</form:label>
-		    <form:input path="num_serie" />
+		    <form:label path="numSerie">Numero de serie</form:label>
+		    <form:input path="numSerie" />
 		    <br/>
 		    <form:label path="type">Type</form:label>
 		    <form:input path="type" /> 
@@ -28,8 +28,8 @@
 		    <form:label path="gps">Coordonnees GPS</form:label>
 		    <form:input path="gps" />
 		    <br/>
-		    <form:label path="date_intervention">Date de derniere intervention</form:label>
-		    <form:input path="date_intervention" />
+		    <form:label path="dateIntervention">Date de derniere intervention</form:label>
+		    <form:input path="dateIntervention" />
 		    <br/>
 		    <form:label path="commentaires">Commentaires</form:label>
 		    <form:input path="commentaires" /> 

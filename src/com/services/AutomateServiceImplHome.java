@@ -10,34 +10,34 @@ import com.dao.AutomateDAO;
 import com.models.Automate;
 
 @Service
-public class AutomateServiceImpl implements AutomateService {
-	private AutomateDAO automateDAO;
+public class AutomateServiceImplHome implements AutomateService {
+	private AutomateDAO automateHome;
 
-//	@Autowired
-//	public void setAutomateDAO(AutomateDAO automateDAO){
-//		this.automateDAO = automateDAO;
-//	}
+	@Autowired
+	public void setAutomateHome(AutomateDAO automateHome){
+		this.automateHome = automateHome;
+	}
 	
 	@Transactional
 	public List<Automate> listAutomates() {
-		return this.automateDAO.listAutomates();
+		return this.automateHome.listAutomates();
 	}
 
 	@Override
 	public void persistAutomate(Automate automate) {
-		this.automateDAO.persistAutomate(automate);
+		this.automateHome.persistAutomate(automate);
 	}
 
 	@Override
 	public void updateAutomate(Automate automate) {
-		this.automateDAO.updateAutomate(automate);
+		this.automateHome.updateAutomate(automate);
 	}
 	@Override
 	public Automate getAutomateByNum(Integer num) {
-		return this.automateDAO.getAutomateByNum(num);
+		return this.automateHome.getAutomateByNum(num);
 	}
 	@Override
 	public void deleteAutomateByNum(Integer num) {
-		this.automateDAO.deleteAutomateByNum(num);
+		this.automateHome.deleteAutomateByNum(num);
 	}
 }

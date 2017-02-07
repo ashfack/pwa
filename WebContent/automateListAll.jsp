@@ -23,7 +23,7 @@
 		<form method="POST" action="./autoListService">
 			<table>
 				<tr>
-					<td>Num série : <%=liste.get(i).getNum_serie()%></td>
+					<td>Num série : <%=liste.get(i).getNumSerie()%></td>
 				</tr>
 				<tr>
 					<td>Type : <%=liste.get(i).getType()%></td>
@@ -38,14 +38,14 @@
 					<td>Coordonnees GPS : <%=liste.get(i).getGps()%></td>
 				</tr>
 				<tr>
-					<td>Date de derniere intervention : <%=liste.get(i).getDate_intervention()%></td>
+					<td>Date de derniere intervention : <%=liste.get(i).getDateIntervention()%></td>
 				</tr>
 				<tr>
 					<td>Commentaires : <%=liste.get(i).getCommentaires()%></td>
 				</tr>
 				<tr>
 					<td>
-					<input type="hidden" value=<%=liste.get(i).getNum_serie() %> name="num_serie"></td>			
+					<input type="hidden" value=<%=liste.get(i).getNumSerie() %> name="num_serie"></td>			
 				</tr>
 				<tr>
 					<td><input type="submit" value="Supprimer cet automate"></td>

@@ -52,16 +52,16 @@ public class AutomateAddServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Entered doPost test add automate number"+ request.getParameter("num_serie"));
+		System.out.println("Entered doPost test add automate number"+ request.getParameter("numSerie"));
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date parsed;
 		// Reconstruction de l'automate
 		Automate automate;
 		try 
 		{
-			parsed = format.parse(request.getParameter("date_intervention"));
+			parsed = format.parse(request.getParameter("dateIntervention"));
 			java.sql.Date date_intervention = new java.sql.Date(parsed.getTime());
-			automate = new Automate(Integer.parseInt(request.getParameter("num_serie")),
+			automate = new Automate(Integer.parseInt(request.getParameter("numSerie")),
 					request.getParameter("type"),
 					request.getParameter("adresse"),
 					request.getParameter("emplacement"),

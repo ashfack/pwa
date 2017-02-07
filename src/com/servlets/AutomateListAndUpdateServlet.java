@@ -87,8 +87,8 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Entered doPost list one automate"+ request.getParameter("num_serie"));
-		System.out.println(request.getParameter("date_intervention"));
+		System.out.println("Entered doPost list one automate"+ request.getParameter("numSerie"));
+		System.out.println(request.getParameter("dateIntervention"));
 		Automate automate;
 		//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US);
@@ -96,9 +96,9 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 		// Reconstruction de l'automate à partir des paramètres
 		try 
 		{
-			parsed = format.parse(request.getParameter("date_intervention"));
+			parsed = format.parse(request.getParameter("dateIntervention"));
 			java.sql.Date date_intervention = new java.sql.Date(parsed.getTime());
-			automate = new Automate(Integer.parseInt(request.getParameter("num_serie")),
+			automate = new Automate(Integer.parseInt(request.getParameter("numSerie")),
 					request.getParameter("type"),
 					request.getParameter("adresse"),
 					request.getParameter("emplacement"),

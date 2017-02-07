@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 7 f?vr. 2017 11:34:39 by Hibernate Tools 5.2.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.models.Automate" table="automate" catalog="pwa" optimistic-lock="version">
+        <id name="numSerie" type="java.lang.Integer">
+            <column name="num_serie" />
+            <generator class="identity" />
+        </id>
+        <property name="type" type="string">
+            <column name="type" length="100" not-null="true" />
+        </property>
+        <property name="adresse" type="string">
+            <column name="adresse" length="250" not-null="true" />
+        </property>
+        <property name="emplacement" type="string">
+            <column name="emplacement" length="250" />
+        </property>
+        <property name="gps" type="string">
+            <column name="gps" length="250" />
+        </property>
+        <property name="dateIntervention" type="timestamp">
+            <column name="date_intervention" length="19" not-null="true" />
+        </property>
+        <property name="commentaires" type="string">
+            <column name="commentaires" length="16777215" />
+        </property>
+        <set name="rapports" table="rapport" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="num_serie" not-null="true" />
+            </key>
+            <one-to-many class="com.models.Rapport" />
+        </set>
+    </class>
+</hibernate-mapping>

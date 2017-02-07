@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 7 f?vr. 2017 11:34:39 by Hibernate Tools 5.2.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.models.Rapport" table="rapport" catalog="pwa" optimistic-lock="version">
+        <composite-id name="id" class="com.models.RapportId">
+            <key-property name="rapportId" type="int">
+                <column name="rapport_id" />
+            </key-property>
+            <key-property name="numSerie" type="int">
+                <column name="num_serie" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="automate" class="com.models.Automate" update="false" insert="false" fetch="select">
+            <column name="num_serie" not-null="true" />
+        </many-to-one>
+        <property name="dateGeneration" type="timestamp">
+            <column name="date_generation" length="19" not-null="true" />
+        </property>
+        <property name="statutFonctionnement" type="string">
+            <column name="statut_fonctionnement" length="3" not-null="true" />
+        </property>
+        <property name="etat" type="string">
+            <column name="etat" length="9" not-null="true" />
+        </property>
+        <property name="temperature" type="java.lang.Integer">
+            <column name="temperature" />
+        </property>
+        <property name="monnayeur" type="string">
+            <column name="monnayeur" length="7" not-null="true" />
+        </property>
+        <property name="cb" type="string">
+            <column name="cb" length="7" not-null="true" />
+        </property>
+        <property name="cbSc" type="string">
+            <column name="cb_sc" length="7" not-null="true" />
+        </property>
+        <property name="montantVentes" type="java.lang.Integer">
+            <column name="montant_ventes" />
+        </property>
+        <set name="AAutomateProduits" table="a_automate_produit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="rapport_id" not-null="true" />
+                <column name="num_serie" not-null="true" />
+            </key>
+            <one-to-many class="com.models.AAutomateProduit" />
+        </set>
+        <set name="erreurs" table="erreur" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="rapport_id" not-null="true" />
+                <column name="num_serie" not-null="true" />
+            </key>
+            <one-to-many class="com.models.Erreur" />
+        </set>
+    </class>
+</hibernate-mapping>

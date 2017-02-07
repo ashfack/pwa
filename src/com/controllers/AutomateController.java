@@ -1,6 +1,7 @@
 package com.controllers;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,12 +20,12 @@ import com.services.AutomateService;
 //@Path("/automateservice/")
 @Produces("text/xml")
 public class AutomateController {
- private AutomateService automateService;
+ private AutomateService automateHomeService;
  
  @Autowired(required=true)
- @Qualifier(value="automateService") 
- public void setAutomateService(AutomateService as){
-  this.automateService = as;
+ @Qualifier(value="automateHomeService") 
+ public void setAutomateHomeService(AutomateService as){
+  this.automateHomeService = as;
  }
  
  @GET
@@ -33,18 +34,18 @@ public class AutomateController {
  public List<Automate> listAutomates()
  { 
 	 System.out.println("invoked in listing all automates");
-	 List<Automate> automates = this.automateService.listAutomates();
+	 List<Automate> automates = this.automateHomeService.listAutomates();
 	 for(Automate a: automates) System.out.println(a.toString());
 	 return automates;
  }
  @GET
  @Path("/automates/{id}/")
  @Produces({"application/json","application/xml"})
- //@RequestMapping(value="/automateService/automate/list",params={"num"}, method = RequestMethod.GET, produces = "application/json")
+ //@RequestMapping(value="/automateHomeService/automate/list",params={"num"}, method = RequestMethod.GET, produces = "application/json")
  public Automate listAutomate(@PathParam("id")Integer num)
  { 
 	 //System.out.println("invoked in listing specific automate");
-	 Automate automate = this.automateService.getAutomateByNum(num);
+	 Automate automate = this.automateHomeService.getAutomateByNum(num);
 	 if (automate != null)
 	 {
 		 System.out.println(automate);
@@ -58,19 +59,20 @@ public class AutomateController {
  @POST
  @Path("/automates/add")
  @Produces({"application/json","application/xml"})
- //@RequestMapping(value="/automateService/automate/add", method = RequestMethod.POST)
+ @Consumes({"application/json","application/xml"})
+ //@RequestMapping(value="/automateHomeService/automate/add", method = RequestMethod.POST)
  public void addAutomate(Automate automate)
  { 
 	 System.out.println("invoked in adding automate");
 	 System.out.println("l'automate" + automate);
-	 this.automateService.persistAutomate(automate);
+	 this.automateHomeService.persistAutomate(automate);
  }
  
- @RequestMapping(value="/automateService/automate/delete", method = RequestMethod.POST)
+ @RequestMapping(value="/automateHomeService/automate/delete", method = RequestMethod.POST)
  public void deleteAutomate(@RequestParam("id") Integer id)
  { 
 	 System.out.println("invoked in deleting automate");
 	 System.out.println("l'automate" + id);
-	 this.automateService.deleteAutomateByNum(id);
+	 this.automateHomeService.deleteAutomateByNum(id);
  }
 }

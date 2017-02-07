@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 7 f?vr. 2017 11:34:39 by Hibernate Tools 5.2.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.models.AAutomateProduit" table="a_automate_produit" catalog="pwa" optimistic-lock="version">
+        <composite-id name="id" class="com.models.AAutomateProduitId">
+            <key-property name="rapportId" type="int">
+                <column name="rapport_id" />
+            </key-property>
+            <key-property name="produitNom" type="string">
+                <column name="produit_nom" length="100" />
+            </key-property>
+            <key-property name="numSerie" type="int">
+                <column name="num_serie" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="produit" class="com.models.Produit" update="false" insert="false" fetch="select">
+            <column name="produit_nom" length="100" not-null="true" />
+        </many-to-one>
+        <many-to-one name="rapport" class="com.models.Rapport" update="false" insert="false" fetch="select">
+            <column name="rapport_id" not-null="true" />
+            <column name="num_serie" not-null="true" />
+        </many-to-one>
+        <property name="quantite" type="java.lang.Integer">
+            <column name="quantite" />
+        </property>
+    </class>
+</hibernate-mapping>
