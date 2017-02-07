@@ -25,8 +25,10 @@ public class Produit implements java.io.Serializable {
 		this.type = type;
 	}
 
+	public Produit(String nom, String type, Set<ARapportProduit> ARapportProduits) {
 		this.nom = nom;
 		this.type = type;
+		this.ARapportsProduits = ARapportProduits;
 	}
 
 	public String getNom() {
@@ -45,9 +47,12 @@ public class Produit implements java.io.Serializable {
 		this.type = type;
 	}
 
+	public Set<ARapportProduit> getARapportProduits() {
 		return this.ARapportsProduits;
 	}
 
+	public void setARapportProduits(Set<ARapportProduit> ARapportProduits) {
+		this.ARapportsProduits = ARapportProduits;
 	}
 
 }
