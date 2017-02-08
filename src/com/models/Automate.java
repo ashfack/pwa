@@ -26,7 +26,7 @@ public class Automate implements java.io.Serializable {
 	private String gps;
 	private Date dateIntervention;
 	private String commentaires;
-	private Set<Rapport> rapports = new HashSet<Rapport>(0);
+	//private Set<Rapport> rapports = new HashSet<Rapport>(0);
 
 	public Automate() {
 	}
@@ -38,14 +38,15 @@ public class Automate implements java.io.Serializable {
 	}
 
 	public Automate(String type, String adresse, String emplacement, String gps, Date dateIntervention,
-			String commentaires, Set<Rapport> rapports) {
+			String commentaires//, Set<Rapport> rapports) {
+){
 		this.type = type;
 		this.adresse = adresse;
 		this.emplacement = emplacement;
 		this.gps = gps;
 		this.dateIntervention = dateIntervention;
 		this.commentaires = commentaires;
-		this.rapports = rapports;
+		//this.rapports = rapports;
 	}
 	
 	public Automate(Integer numSerie, String type, String adresse, String emplacement, String gps,
@@ -116,13 +117,13 @@ public class Automate implements java.io.Serializable {
 		this.commentaires = commentaires;
 	}
 
-	public Set<Rapport> getRapports() {
-		return this.rapports;
-	}
-
-	public void setRapports(Set<Rapport> rapports) {
-		this.rapports = rapports;
-	}
+//	public Set<Rapport> getRapports() {
+//		return this.rapports;
+//	}
+//
+//	public void setRapports(Set<Rapport> rapports) {
+//		this.rapports = rapports;
+//	}
 
 	@Override
 	public String toString() {

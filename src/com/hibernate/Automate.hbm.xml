@@ -26,11 +26,11 @@
         <property name="commentaires" type="string">
             <column name="commentaires" length="16777215" />
         </property>
-        <set name="rapports" table="rapport" inverse="true" lazy="true" fetch="select">
+       <!--  <set name="rapports" table="rapport" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="num_serie" not-null="true" />
             </key>
             <one-to-many class="com.models.Rapport" />
-        </set>
+        </set> -->
     </class>
 </hibernate-mapping>

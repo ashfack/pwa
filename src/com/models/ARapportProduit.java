@@ -12,7 +12,7 @@ public class ARapportProduit implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private ARapportProduitId id;
 	private Produit produit;
-	private Rapport rapport;
+	//private Rapport rapport;
 	private Integer quantite;
 
 	public ARapportProduit() {
@@ -21,13 +21,19 @@ public class ARapportProduit implements java.io.Serializable {
 	public ARapportProduit(ARapportProduitId id, Produit produit, Rapport rapport) {
 		this.id = id;
 		this.produit = produit;
-		this.rapport = rapport;
+		//this.rapport = rapport;
 	}
 
-	public ARapportProduit(ARapportProduitId id, Produit produit, Rapport rapport, Integer quantite) {
+//	public ARapportProduit(ARapportProduitId id, Produit produit, Rapport rapport, Integer quantite) {
+//		this.id = id;
+//		this.produit = produit;
+//		this.rapport = rapport;
+//		this.quantite = quantite;
+//	}
+	
+	public ARapportProduit(ARapportProduitId id, Produit produit, Integer quantite) {
 		this.id = id;
 		this.produit = produit;
-		this.rapport = rapport;
 		this.quantite = quantite;
 	}
 
@@ -47,13 +53,13 @@ public class ARapportProduit implements java.io.Serializable {
 		this.produit = produit;
 	}
 
-	public Rapport getRapport() {
-		return this.rapport;
-	}
-
-	public void setRapport(Rapport rapport) {
-		this.rapport = rapport;
-	}
+//	public Rapport getRapport() {
+//		return this.rapport;
+//	}
+//
+//	public void setRapport(Rapport rapport) {
+//		this.rapport = rapport;
+//	}
 
 	public Integer getQuantite() {
 		return this.quantite;
