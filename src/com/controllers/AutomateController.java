@@ -10,9 +10,6 @@ import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.models.Automate;
 import com.services.AutomateService;
@@ -60,7 +57,6 @@ public class AutomateController {
  @Path("/automates/add")
  @Produces({"application/json","application/xml"})
  @Consumes({"application/json","application/xml"})
- //@RequestMapping(value="/automateHomeService/automate/add", method = RequestMethod.POST)
  public void addAutomate(Automate automate)
  { 
 	 System.out.println("invoked in adding automate");
@@ -68,8 +64,9 @@ public class AutomateController {
 	 this.automateHomeService.persistAutomate(automate);
  }
  
- @RequestMapping(value="/automateHomeService/automate/delete", method = RequestMethod.POST)
- public void deleteAutomate(@RequestParam("id") Integer id)
+ @POST
+ @Path("automates/delete/{id}")
+ public void deleteAutomate(@PathParam("id") Integer id)
  { 
 	 System.out.println("invoked in deleting automate");
 	 System.out.println("l'automate" + id);

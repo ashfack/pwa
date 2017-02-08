@@ -69,7 +69,8 @@ public class AutomateAddServlet extends HttpServlet {
 					date_intervention,
 					request.getParameter("commentaires")
 					);
-		} catch (NumberFormatException | ParseException e1) {
+		} catch (NumberFormatException | ParseException e1) 
+		{
 			System.out.println(e1.getMessage());
 			return;
 		}
@@ -85,7 +86,7 @@ public class AutomateAddServlet extends HttpServlet {
 			URL url = new URL("http://localhost:8080/automate/cxf/automateservice/automates/add");
 			URLConnection connection = url.openConnection();
 			connection.setDoOutput(true);
-			connection.setRequestProperty("Content-type", "application/json");
+			connection.setRequestProperty("Content-type", "plain/text");
 			OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
 			out.write(json);
 			out.close();
@@ -93,10 +94,12 @@ public class AutomateAddServlet extends HttpServlet {
 			while (in.readLine() != null){}
 			System.out.println("Success to reach the Rest API");
 			in.close();
+			this.getServletContext().getRequestDispatcher( "/home.jsp" ).forward( request, response );
 		}
 		catch (Exception e)
 		{
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
+			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
 		}
 		
 	}

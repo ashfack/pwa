@@ -12,6 +12,7 @@
 <body>
 	<%-- Sample Bean: <%= automate %>
 	<%= request.getAttribute("automates") %> --%>
+	<h1 style="text-align:center">Liste de toutes les fiches des automates</h1>
 	<% 
 		Gson gson = new Gson();
 		List<Automate> liste = gson.fromJson((String)request.getAttribute("automates"), 
@@ -45,7 +46,7 @@
 				</tr>
 				<tr>
 					<td>
-					<input type="hidden" value=<%=liste.get(i).getNumSerie() %> name="num_serie"></td>			
+					<input type="hidden" value=<%=liste.get(i).getNumSerie() %> name="numSerie"></td>			
 				</tr>
 				<tr>
 					<td><input type="submit" value="Supprimer cet automate"></td>

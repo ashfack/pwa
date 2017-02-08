@@ -36,12 +36,6 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
-  <jaxrs:server id="BibliothequeService" address="/bibliothequeservice/">
-    <jaxrs:serviceBeans>
-      <bean class="com.services.BibliothequeService" />
-    </jaxrs:serviceBeans>
-  </jaxrs:server>
   
   <jaxrs:server id="AutomateController" address="/automateservice/">
     <jaxrs:serviceBeans>
@@ -62,7 +56,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 		<beans:property name="url"
 			value="jdbc:mysql://localhost:3306/pwa" />
 		<beans:property name="username" value="root" />
-		<beans:property name="password" value="pfeconix" />
+		<beans:property name="password" value="" />
 	</beans:bean>
 
 	<!-- Hibernate 4 SessionFactory Bean definition -->

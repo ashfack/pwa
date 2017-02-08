@@ -4,6 +4,7 @@ package com.servlets;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -53,6 +54,11 @@ public class AutomateListAllServlet extends HttpServlet {
 			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String s;
 			s=in.readLine();
+			if(s == null)
+			{
+				response.getWriter().append("\n Automate non trouvé");
+				this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
+			}
 			System.out.println("Success to reach the Rest API");
 			in.close();
 			System.out.println("s retrieved is : " +s);
@@ -64,6 +70,7 @@ public class AutomateListAllServlet extends HttpServlet {
 		catch (Exception e)
 		{
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
+			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
 		}
 		
 	}	
@@ -71,8 +78,28 @@ public class AutomateListAllServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	// To delete automate... need to separate (later)
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Entered doPost list all automates");
 		System.out.println(request.getParameter("numSerie"));
+		try
+		{
+			URL url = new URL("http://localhost:8080/automate/cxf/automateservice/automates/delete/"+request.getParameter("numSerie"));
+			URLConnection connection = url.openConnection();
+			connection.setDoOutput(true);
+			OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+			out.write("");
+			out.close();
+			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			while (in.readLine() != null){}
+			System.out.println("Success to reach the Rest API");
+			in.close();
+			this.getServletContext().getRequestDispatcher( "/home.jsp" ).forward( request, response );
+		}
+		catch (Exception e)
+		{
+			System.out.println("Fail to reach the Rest API " +e.getMessage());
+			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
+		}
 	}
 }

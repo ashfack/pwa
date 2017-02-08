@@ -65,6 +65,12 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String s;
 			s=in.readLine();
+			if(s == null)
+			{
+				response.getWriter().append("\n Automate non trouvé");
+				this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
+				return;
+			}
 			System.out.println("Success to reach the Rest API");
 			in.close();
 			System.out.println("s is : " +s);
@@ -79,6 +85,7 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 		catch (Exception e)
 		{
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
+			this.getServletContext().getRequestDispatcher( "/home.jsp" ).forward( request, response );
 		}
 		
 	}	
@@ -129,10 +136,12 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 			while (in.readLine() != null){}
 			System.out.println("Success to reach the Rest API");
 			in.close();
+			this.getServletContext().getRequestDispatcher( "/home.jsp" ).forward( request, response );
 		}
 		catch (Exception e)
 		{
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
+			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
 		} 
 
 	}

@@ -25,7 +25,6 @@ public class AutomateHome implements AutomateDAO{
 
 	private static final Log log = LogFactory.getLog(AutomateHome.class);
 	private static final String HQL_SELECT_ALL = "FROM Automate";
-	//private SessionFactory sessionFactory = getSessionFactory();
 	private SessionFactory sessionFactory;
 	
 	public void setSessionFactory(SessionFactory sessionFactory)
@@ -73,7 +72,10 @@ public class AutomateHome implements AutomateDAO{
 	public void delete(Automate persistentInstance) {
 		log.debug("deleting Automate instance");
 		try {
-			sessionFactory.openSession().delete(persistentInstance);
+			Session session = sessionFactory.openSession(); 
+			session.delete(persistentInstance);
+			session.flush();
+			session.close();
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
