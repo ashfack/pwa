@@ -16,20 +16,20 @@ public class Erreur implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private ErreurId id;
-	private Rapport rapport;
+	//private Rapport rapport;
 	private String description;
 
 	public Erreur() {
 	}
 
-	public Erreur(ErreurId id, Rapport rapport) {
-		this.id = id;
-		this.rapport = rapport;
+	public Erreur(ErreurId id//, Rapport rapport) {
+	){	this.id = id;
+		//this.rapport = rapport;
 	}
 
-	public Erreur(ErreurId id, Rapport rapport, String description) {
-		this.id = id;
-		this.rapport = rapport;
+	public Erreur(ErreurId id, Rapport rapport//, String description) {
+	){	this.id = id;
+		//this.rapport = rapport;
 		this.description = description;
 	}
 
@@ -41,13 +41,13 @@ public class Erreur implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Rapport getRapport() {
-		return this.rapport;
-	}
-
-	public void setRapport(Rapport rapport) {
-		this.rapport = rapport;
-	}
+//	public Rapport getRapport() {
+//		return this.rapport;
+//	}
+//
+//	public void setRapport(Rapport rapport) {
+//		this.rapport = rapport;
+//	}
 
 	public String getDescription() {
 		return this.description;

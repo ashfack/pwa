@@ -18,10 +18,10 @@
                 <column name="num_serie" />
             </key-property>
         </composite-id>
-        <many-to-one name="rapport" class="com.models.Rapport" update="false" insert="false" fetch="select">
+       <!--  <many-to-one name="rapport" class="com.models.Rapport" update="false" insert="false" fetch="select">
             <column name="rapport_id" not-null="true" />
             <column name="num_serie" not-null="true" />
-        </many-to-one>
+        </many-to-one> -->
         <property name="description" type="string">
             <column name="description" length="65535" />
         </property>

@@ -85,10 +85,14 @@ public class RapportHome {
 			System.out.println("Came here");
 			newRapport.setARapportProduits(aRPs);
 			
-//			for(Erreur e : erreurs)
-//			{
-//				
-//			}
+			for(Erreur e : erreurs)
+			{
+				e.getId().setRapportId(lastId);
+				session.merge(e);
+				session.flush();
+				System.out.println("Ajout dans la table erreur effecué");
+			}
+			newRapport.setErreurs(erreurs);
 			session.merge(newRapport);
 			session.flush();
 			session.close();	
