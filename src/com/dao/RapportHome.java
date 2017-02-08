@@ -1,8 +1,10 @@
 package com.dao;
 // Generated 7 f�vr. 2017 11:34:39 by Hibernate Tools 5.2.0.Beta1
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,6 +16,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 
+import com.models.ARapportProduit;
+import com.models.Erreur;
 import com.models.Rapport;
 import com.models.RapportId;
 
@@ -34,10 +38,60 @@ public class RapportHome {
 		this.sessionFactory = sessionFactory;
 	}
 	
-	public void persist(Rapport transientInstance) {
+	public void persist(Rapport rapport) {
 		log.debug("persisting Rapport instance");
 		try {
-			sessionFactory.openSession().persist(transientInstance);
+			Session session = this.sessionFactory.openSession();
+			// Create empty report
+			Rapport newRapport = new Rapport();
+			// Retrieve the common fields unique fields
+			newRapport.setId(rapport.getId());
+			newRapport.setAutomate(rapport.getAutomate());
+			newRapport.setDateGeneration(rapport.getDateGeneration());
+			newRapport.setStatutFonctionnement(rapport.getStatutFonctionnement());
+			newRapport.setEtat(rapport.getEtat());
+			newRapport.setTemperature(rapport.getTemperature());
+			newRapport.setMonnayeur(rapport.getMonnayeur());
+			newRapport.setCb(rapport.getCb());
+			newRapport.setCbSc(rapport.getCbSc());
+			newRapport.setMontantVentes(rapport.getMontantVentes());
+			
+			Set<ARapportProduit> aRPs = rapport.getARapportProduits();
+			Set<Erreur> erreurs = rapport.getErreurs();
+			// enregistrement du rapport sans erreurs ni produits
+			newRapport = (Rapport)session.merge(newRapport);
+			session.flush();
+			int lastId = ((BigInteger) session.createSQLQuery("SELECT LAST_INSERT_ID()").uniqueResult()).intValue();
+			System.out.println("last id is " + lastId);
+
+			// récupérations de tous les produits de ARapportsProduits et Enregistrement
+			
+			for(ARapportProduit a : aRPs)
+			{
+				System.out.println("Hey in ARapportProduit");
+				session.merge(a.getProduit());
+				session.flush();
+				System.out.println("produit ajouté");
+				a.getId().setRapportId(lastId);
+				// Dunno
+				System.out.println("newRapport.getId().getRapportId() is " + lastId);
+				System.out.println("All fields of a_rapport_produit :");
+				System.out.println(a.getId().getRapportId());
+				System.out.println("Ok");
+				session.merge(a);
+				session.flush();
+			
+			}
+			System.out.println("Came here");
+			newRapport.setARapportProduits(aRPs);
+			
+//			for(Erreur e : erreurs)
+//			{
+//				
+//			}
+			session.merge(newRapport);
+			session.flush();
+			session.close();	
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
 			log.error("persist failed", re);
