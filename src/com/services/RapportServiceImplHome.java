@@ -33,5 +33,11 @@ public class RapportServiceImplHome implements RapportService {
 	public void updateRapport(Rapport rapport) {
 		this.rapportHome.update(rapport);
 	}
+
+	@Override
+	public List<Rapport> listRapportsDuJour() {
+		
+		return this.rapportHome.listRapportsDuJour();
+	}
 	
 }

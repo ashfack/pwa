@@ -1,6 +1,8 @@
 <%@page import="com.models.Erreur"%>
 <%@page import="com.models.ARapportProduit"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Set"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" import="com.models.Rapport,com.google.gson.Gson" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <jsp:useBean id="rapport" class="com.models.Rapport" scope="request" />
@@ -30,96 +32,152 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Portfolio Item Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Portfolio Item
-                    <small>Item Subheading</small>
-                </h1>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <!-- Portfolio Item Row -->
-        <div class="row">
-
-            <div class="col-md-8">
-                <img class="img-responsive" src="http://placehold.it/750x500" alt="">
-            </div>
-
-            <div class="col-md-4">
-                <h3>Project Description</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
-                <h3>Project Details</h3>
-                <ul>
-                    <li>Lorem Ipsum</li>
-                    <li>Dolor Sit Amet</li>
-                    <li>Consectetur</li>
-                    <li>Adipiscing Elit</li>
-                </ul>
-            </div>
-
-        </div>
-        <!-- /.row -->
-
-		
-        <!-- Related Projects Row -->
         <div class="row">
 
             <div class="col-lg-12">
-                <h3 class="page-header">Related Projects</h3>
+                <h3 class="page-header">Automates hors service</h3>
             </div>
 
 			<%
-			System.out.print("hey 1");
+	
 		Gson gson = new Gson();
 		List<Rapport> liste = (List<Rapport>) request.getAttribute("rapports");
-		System.out.print("hey 2");
+		ArrayList<Rapport> automateHS=new ArrayList<Rapport>();
+		ArrayList<Rapport> automateESetErreur=new ArrayList<Rapport>();
+		ArrayList<Rapport> automateAR=new ArrayList<Rapport>();
+		
+		Rapport r;
+		ARapportProduit aR;
+		
+		int temperature=(int)request.getAttribute("temperature");
+		int seuilJourBoissonChaudes=10, seuilJourBoissonFraiches=10, seuilJourAutre=10;
+		if(temperature < 5)
+			seuilJourBoissonChaudes*=3;
+		else if(temperature>25)
+			seuilJourBoissonFraiches*=3;
+		//System.out.println("temperature: "+temperature+", seuilBC : "+seuilJourBoissonChaudes+" seuilBF : "+seuilJourBoissonFraiches+", seuilautre: "+seuilJourAutre);
 		for(int i = 0; i < liste.size(); i++)
 		{
-			System.out.println("ho ho ho" + i);
+			r=liste.get(i);
+			ARapportProduit[] listAR = (ARapportProduit[])r.getARapportProduits().toArray(new ARapportProduit[r.getARapportProduits().size()]);
+			for(int j=0;j<listAR.length;j++)
+			{
+				aR=listAR[j];
+			    //System.out.println("produit : "+aR.getProduit().getNom()+" quantite : "+aR.getQuantite());
+				if(aR.getProduit().getType().equals("Boisson_chaude") && aR.getQuantite()<seuilJourBoissonChaudes)
+				{
+					automateAR.add(r);
+					break;
+				}
+				else if(aR.getProduit().getType().equals("Boisson_froide") && aR.getQuantite()<seuilJourBoissonFraiches)
+				{
+					automateAR.add(r);
+					break;
+				}
+				else if(aR.getQuantite()<seuilJourAutre)
+				{
+					automateAR.add(r);
+					break;
+				}
+			}
+			if(r.getStatutFonctionnement().equals("HS"))
+				automateHS.add(r);
+			else
+			{
+				if(!r.getEtat().equals("OK"))
+					automateESetErreur.add(r);
+			}
+		}
+		//System.out.println("HS : "+automateHS.size()+" ESERR :"+automateESetErreur.size()+" AR :"+automateAR.size());
+		for(int i=0;i<automateHS.size();i++)
+		{
 		%>	
-            <div class="col-sm-3 col-xs-6">
-            <%
-                if(liste.get(i).getARapportProduits().toArray().length != 0)
-           		{
-                	System.out.println("I in in A rapport Produits" + i + liste.get(i).getARapportProduits().toArray());
-           		%>
+      
+            <div class="col-md-6 col-xs-6">
+            		Rapport id : <%=automateHS.get(i).getId().getRapportId()  %> <br/>
+           			Numéro de  automate : <%=automateHS.get(i).getAutomate().getNumSerie()  %> <br/>
+           			Adresse: <%=automateHS.get(i).getAutomate().getAdresse()  %> <br/>
+        			Statut de fonctionnement: <%=automateHS.get(i).getStatutFonctionnement()  %> <br/>
+           			Etat :  <%=automateHS.get(i).getEtat()  %> <br/>
            		
-                <p><%=((ARapportProduit)liste.get(i).getARapportProduits().toArray()[0]).getQuantite()%></p>
-                <%	
-           		}
-                %>
-            </div>
-            <div class="col-sm-3 col-xs-6">
-                <%
-                if(liste.get(i).getErreurs().toArray().length != 0)
-           		{
-                	System.out.println("I in in Erreurs" + i + liste.get(i).getErreurs().toArray());
-           		%>
-           			<%= ((Erreur)(liste.get(i).getErreurs().toArray()[0])).getDescription() %>
-           		<%	
-           		}
-                %>
-            </div>
-
-	<%
+		<%
+		Erreur[] listER = (Erreur[])automateHS.get(i).getErreurs().toArray(new Erreur[automateHS.get(i).getErreurs().size()]);
+			for(int j=0;j<listER.length;j++)
+			{
+				
+		%>
+					Erreur <%= j+1%> : <%=listER[j]%>
+		<% 
+			}
+		%>
+			</div>
+		<%
 		}
 		%>
         </div>
-        <!-- /.row -->
+		<div class="row">
 
+            <div class="col-lg-12">
+                <h3 class="page-header">Automates en service mais nécessisant une attention particulière</h3>
+            </div>
+	<%
+		for(int i=0;i<automateESetErreur.size();i++)
+		{
+	%>
+			<div class="col-md-6 col-xs-6">
+            		Rapport id : <%=automateESetErreur.get(i).getId().getRapportId()  %> <br/>
+           			Numéro de  automate : <%=automateESetErreur.get(i).getAutomate().getNumSerie()  %> <br/>
+           			Adresse: <%=automateESetErreur.get(i).getAutomate().getAdresse()  %> <br/>
+           			Statut de fonctionnement: <%=automateESetErreur.get(i).getStatutFonctionnement()  %> <br/>
+           			Etat :  <%=automateESetErreur.get(i).getEtat()  %>
+		<%
+		Erreur[] listER = (Erreur[])automateESetErreur.get(i).getErreurs().toArray(new Erreur[automateESetErreur.get(i).getErreurs().size()]);
+			for(int j=0;j<listER.length;j++)
+			{
+				
+		%>
+					Erreur <%= j+1%> : <%=listER[j]%>
+		<% 
+			}
+		%>
+			</div>
+		<%
+		}
+		%>
+		</div>
+		<div class="row">
+
+            <div class="col-lg-12">
+                <h3 class="page-header">Automates à réapprovisionner</h3>
+            </div>
+	<%
+		for(int i=0;i<automateAR.size();i++)
+		{
+	%>
+			<div class="col-md-6 col-xs-6">
+            		Rapport id : <%=automateAR.get(i).getId().getRapportId()  %> <br/>
+           			Numéro de  automate : <%=automateAR.get(i).getAutomate().getNumSerie()  %> <br/>
+           			Adresse: <%=automateAR.get(i).getAutomate().getAdresse()  %> <br/>
+           			Météo: <%= temperature %>°C <br/>
+           			Seuil du jour: Boissons chaudes (<%=seuilJourBoissonChaudes %>), Boissons fraiches(<%=seuilJourBoissonFraiches %>), Autre(<%=seuilJourAutre%>) <br/>
+        			
+		<%
+		ARapportProduit[] listAR = (ARapportProduit[])automateAR.get(i).getARapportProduits().toArray(new ARapportProduit[automateAR.get(i).getARapportProduits().size()]);
+			for(int j=0;j<listAR.length;j++)
+			{
+				
+		%>
+					Produit <%= j+1%> : <%=listAR[j]%>
+		<% 
+			}
+		%>
+			</div>
+		<%
+		}
+		%>
+		 </div>
         <hr>
 
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; PWA - G2</p>
-                </div>
-            </div>
-            <!-- /.row -->
-        </footer>
 
     </div>
     <!-- /.container -->

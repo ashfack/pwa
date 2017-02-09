@@ -52,4 +52,8 @@ public class Erreur implements java.io.Serializable {
 		this.description = description;
 	}
 
+	public String toString()
+	{
+		return this.id.getNom()+" ("+this.description+")";
+	}
 }

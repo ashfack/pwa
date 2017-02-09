@@ -9,6 +9,7 @@ import com.models.Rapport;
 @Service
 public interface RapportService {
 	public List<Rapport> listRapports();
+	public List<Rapport> listRapportsDuJour();
 	public void persistRapport(Rapport rapport);
 	public void updateRapport(Rapport rapport);
 	

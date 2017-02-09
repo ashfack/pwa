@@ -73,5 +73,10 @@ public class ARapportProduit implements java.io.Serializable {
 	public void setQuantite(Integer quantite) {
 		this.quantite = quantite;
 	}
+	
+	public String toString()
+	{
+		return produit.getNom()+" (quantité : "+quantite+" )";
+	}
 
 }

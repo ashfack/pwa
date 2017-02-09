@@ -35,6 +35,17 @@ public class RapportController {
 	 return rapports;
  }
  
+ @GET
+ @Path("/rapportsDuJour/")
+ @Produces({"application/json","application/xml"})
+ public List<Rapport> listRapportsDuJour()
+ { 
+	 System.out.println("invoked in listing all rapports");
+	 List<Rapport> rapports = this.rapportHomeService.listRapportsDuJour();
+	 for(Rapport a: rapports) System.out.println(a.toString());
+	 return rapports;
+ }
+ 
  @POST
  @Path("/rapports/add")
  @Produces({"application/json","application/xml"})

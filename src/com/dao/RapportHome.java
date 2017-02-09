@@ -29,6 +29,7 @@ import com.models.RapportId;
 public class RapportHome {
 
 	private static final String HQL_SELECT_ALL = "FROM Rapport";
+	private static final String HQL_SELECT_ALL_DAY = "FROM Rapport WHERE timestampdiff(day,date_generation,CURDATE()) < 1";
 	private static final Log log = LogFactory.getLog(RapportHome.class);
 
 	private SessionFactory sessionFactory;
@@ -181,12 +182,38 @@ public class RapportHome {
 	
 	@SuppressWarnings("unchecked")
 	public List<Rapport> listRapports() {
-		log.debug("finding Rapport instance by example");
+		log.debug("List all rapports");
 		try {
 			Session session = this.sessionFactory.openSession();
 			Transaction transaction = null;
 			List<Rapport> rapportList = new ArrayList<Rapport>();
 			Query requeteLister = session.createQuery(HQL_SELECT_ALL);
+
+			try{
+				transaction = session.beginTransaction();
+				rapportList = requeteLister.list();
+			}catch(HibernateException he){
+				if (transaction != null) transaction.rollback();
+				he.printStackTrace();
+			}finally{
+				session.close();
+			}
+
+			return rapportList;
+		} catch (RuntimeException re) {
+			log.error("find by example failed", re);
+			throw re;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Rapport> listRapportsDuJour() {
+		log.debug("List all rapports of day");
+		try {
+			Session session = this.sessionFactory.openSession();
+			Transaction transaction = null;
+			List<Rapport> rapportList = new ArrayList<Rapport>();
+			Query requeteLister = session.createQuery(HQL_SELECT_ALL_DAY);
 
 			try{
 				transaction = session.beginTransaction();
