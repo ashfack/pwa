@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import com.google.gson.Gson;
 import com.models.Rapport;
@@ -139,6 +140,8 @@ public class RapporTableauDeBordServlet extends HttpServlet {
 				System.out.println(rapport);
 				rapports.add(rapport);
 			}
+			
+			request.setAttribute("temperature", 2);
 			request.setAttribute("rapports", rapports);
 			this.getServletContext().getRequestDispatcher( "/tableauDeBord.jsp" ).forward( request, response );
 			return;
@@ -148,7 +151,6 @@ public class RapporTableauDeBordServlet extends HttpServlet {
 			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
 			return;
 		}
-		    //this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
 		
 	}	
 
