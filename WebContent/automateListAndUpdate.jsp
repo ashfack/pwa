@@ -9,6 +9,7 @@
 <link href="./css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+	<%@include file="./header.jsp" %>
 	<% if (request.getParameter("id") != null) 
 	{
 	%>

@@ -9,6 +9,7 @@
 	<link href="./css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+	<%@include file="./header.jsp" %>
 	<h1 style="text-align:center"> Ajout d'un automate</h1>
 	<form:form method="POST" action="./autoAddService" modelAttribute="automate" >
 		<div class="row">

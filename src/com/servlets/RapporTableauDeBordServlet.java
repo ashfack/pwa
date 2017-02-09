@@ -48,6 +48,7 @@ public class RapporTableauDeBordServlet extends HttpServlet {
 
 		// Appel à l'API Rest pour récupérer tous les rapports
 		String s = null;
+		// First network check
 		try
 		{
 			URL url = new URL("http://localhost:8080/automate/cxf/rapportservice/rapports/");
@@ -72,6 +73,7 @@ public class RapporTableauDeBordServlet extends HttpServlet {
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
 			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
 		}
+		// Iterating through rapports
 		try
 		{
 			ArrayList<Rapport> rapports = new ArrayList<Rapport>();
@@ -83,21 +85,19 @@ public class RapporTableauDeBordServlet extends HttpServlet {
 				System.out.println(array.getJSONObject(i));
 				Object objARapportProduits = null;
 				Object objerreurs = null;
+				// recovering ARapportProduits if exist and casting them properly
 				try
 				{
 					objARapportProduits = array.getJSONObject(i).get("ARapportProduits");
 					if( objARapportProduits != null)
 					{
 						System.out.println(objARapportProduits);
-						if(objARapportProduits instanceof JSONArray)
-							System.out.println("Coucou array - ok RAS");
-		
 						if(objARapportProduits instanceof JSONObject)
 						{
 							System.out.println("Coucou object");
 							JSONArray jsonArray = new JSONArray();
 							jsonArray.put(objARapportProduits);
-							System.out.println("hey hey" + jsonArray);
+							System.out.println("ARapportProduits jsonArray" + jsonArray);
 		
 							array.getJSONObject(i).remove("ARapportProduits");
 							array.getJSONObject(i).put("ARapportProduits", jsonArray);
@@ -108,26 +108,20 @@ public class RapporTableauDeBordServlet extends HttpServlet {
 				}
 				catch(JSONException e)
 				{
-					System.out.println("Not found et c'est pas grave");
-					Rapport rapport = gson.fromJson(array.getJSONObject(i).toString(), Rapport.class);
-					System.out.println(rapport);
-					rapports.add(rapport);
+					
 				}
+				// recovering erreurs if exist and casting them properly
 				try
 				{
 					objerreurs = array.getJSONObject(i).get("erreurs");
 					if( objerreurs != null)
 					{
 						System.out.println(objerreurs);
-						if(objerreurs instanceof JSONArray)
-							System.out.println("Coucou array - ok RAS");
-		
 						if(objerreurs instanceof JSONObject)
 						{
-							System.out.println("Coucou object");
 							JSONArray jsonArray = new JSONArray();
 							jsonArray.put(objerreurs);
-							System.out.println("hey hey" + jsonArray);
+							System.out.println("erreurs jsonArray" + jsonArray);
 		
 							array.getJSONObject(i).remove("erreurs");
 							array.getJSONObject(i).put("erreurs", jsonArray);
@@ -137,12 +131,9 @@ public class RapporTableauDeBordServlet extends HttpServlet {
 				}
 				catch(JSONException e)
 				{
-					System.out.println("Not found et c'est pas grave");
-					Rapport rapport = gson.fromJson(array.getJSONObject(i).toString(), Rapport.class);
-					System.out.println(rapport);
-					rapports.add(rapport);
+					
 				}
-				
+				// In anycase, now we have the proper attributes (empty or not), we create the report and we add it
 				Rapport rapport = gson.fromJson(array.getJSONObject(i).toString(), Rapport.class);
 				System.out.println(rapport);
 				rapports.add(rapport);

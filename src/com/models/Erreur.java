@@ -19,20 +19,15 @@ public class Erreur implements java.io.Serializable {
 	//private Rapport rapport;
 	private String description;
 
-	public Erreur() {
+	public Erreur() 
+	{
 	}
 
-	public Erreur(ErreurId id//, Rapport rapport) {
-	){	this.id = id;
-		//this.rapport = rapport;
+	public Erreur(ErreurId id)
+	{	
+		this.id = id;
 	}
-
-	public Erreur(ErreurId id, Rapport rapport//, String description) {
-	){	this.id = id;
-		//this.rapport = rapport;
-		this.description = description;
-	}
-
+	
 	public ErreurId getId() {
 		return this.id;
 	}

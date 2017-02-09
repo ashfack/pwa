@@ -100,7 +100,7 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 		//SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US);
 		Date parsed;
-		// Reconstruction de l'automate à partir des paramètres
+		// Rebuilding automate from parameters
 		try 
 		{
 			parsed = format.parse(request.getParameter("dateIntervention"));
@@ -123,6 +123,8 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 		// Conversion en string jsonifie
 		String json = "{ \"Automate\":" +gson.toJson(automate)+"}";
 		// Appel à l'API Rest pour mettre à jour
+		
+		// We could also might have build the json String manually...
 		try
 		{
 			URL url = new URL("http://localhost:8080/automate/cxf/automateservice/automates/add");

@@ -88,6 +88,7 @@ public class AutomateListAllServlet extends HttpServlet {
 			URLConnection connection = url.openConnection();
 			connection.setDoOutput(true);
 			OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+			// Required in order for this to be a POST Method
 			out.write("");
 			out.close();
 			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));

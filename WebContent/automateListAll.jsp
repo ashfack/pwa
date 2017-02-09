@@ -2,14 +2,17 @@
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" import="com.models.Automate,com.google.gson.Gson" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <jsp:useBean id="automate" class="com.models.Automate" scope="request" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Liste de tous les automates</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+	<title>Liste de tous les automates</title>
 </head>
 <body>
+	<%@include file="./header.jsp" %>	
 	<%-- Sample Bean: <%= automate %>
 	<%= request.getAttribute("automates") %> --%>
 	<h1 style="text-align:center"> Liste de tous les automates</h1>
@@ -25,6 +28,7 @@
 		<form method="POST" action="./autoListService">
 			<table>
 				<tr>
+					
 					<td>Num série : <%=liste.get(i).getNumSerie()%></td>
 				</tr>
 				<tr>
@@ -47,7 +51,7 @@
 				</tr>
 				<tr>
 					<td>
-					<input type="hidden" value=<%=liste.get(i).getNumSerie() %> name="num_serie"></td>			
+					<input type="hidden" value=<%=liste.get(i).getNumSerie() %> name="numSerie"></td>			
 				</tr>
 				<tr>
 					<td><input type="submit" value="Supprimer cet automate"></td>
@@ -57,5 +61,7 @@
 		<%
 		}
 		%>
+<script src="./js/jquery.min.js"></script>    
+<script src="./js/bootstrap.min.js"></script>		
 </body>
 </html>

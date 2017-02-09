@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import com.models.Automate;
 import com.services.AutomateService;
 
-//@Path("/automateservice/")
 @Produces("text/xml")
 public class AutomateController {
  private AutomateService automateHomeService;
@@ -38,10 +37,9 @@ public class AutomateController {
  @GET
  @Path("/automates/{id}/")
  @Produces({"application/json","application/xml"})
- //@RequestMapping(value="/automateHomeService/automate/list",params={"num"}, method = RequestMethod.GET, produces = "application/json")
  public Automate listAutomate(@PathParam("id")Integer num)
  { 
-	 //System.out.println("invoked in listing specific automate");
+	 System.out.println("invoked in listing specific automate");
 	 Automate automate = this.automateHomeService.getAutomateByNum(num);
 	 if (automate != null)
 	 {

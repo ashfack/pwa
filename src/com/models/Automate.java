@@ -2,8 +2,6 @@ package com.models;
 // Generated 7 f�vr. 2017 11:34:38 by Hibernate Tools 5.2.0.Beta1
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlRootElement;

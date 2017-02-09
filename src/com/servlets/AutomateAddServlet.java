@@ -77,7 +77,6 @@ public class AutomateAddServlet extends HttpServlet {
 		System.out.println(automate);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create(); 
 		// Conversion de l'automate en chaine jsonifié
-//		String json = "{ \"Automate\":" +gson.toJson(automate)+"}";
 		String json = "{ \"Automate\":" +gson.toJson(automate)+"}";
 		System.out.println("chaine json dentreee a l'api " + json);
 		// Appel à l'API Rest
@@ -101,7 +100,5 @@ public class AutomateAddServlet extends HttpServlet {
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
 			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
 		}
-		
 	}
-
 }
