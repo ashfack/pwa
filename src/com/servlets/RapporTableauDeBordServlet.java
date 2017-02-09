@@ -72,6 +72,7 @@ public class RapporTableauDeBordServlet extends HttpServlet {
 			System.out.println(e.getClass());
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
 			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
+			return;
 		}
 		// Iterating through rapports
 		try
@@ -140,10 +141,12 @@ public class RapporTableauDeBordServlet extends HttpServlet {
 			}
 			request.setAttribute("rapports", rapports);
 			this.getServletContext().getRequestDispatcher( "/tableauDeBord.jsp" ).forward( request, response );
+			return;
 		}
 		catch(Exception e)
 		{
 			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
+			return;
 		}
 		    //this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
 		

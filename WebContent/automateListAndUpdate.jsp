@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Lister et modifier cet automate</title>
 <link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/automate_custom_template.css" rel="stylesheet">
 </head>
 <body>
 	<%@include file="./header.jsp" %>
@@ -47,7 +48,7 @@
 			<form:input class="col-md-2" path="commentaires" />
 		</div>
 		<div class="row">
-			<input class="btn btn-default col-md-2 col-md-push-1" type="submit"
+			<input class="btn btn-submit col-md-2 col-md-push-1" type="submit"
 				value="Submit" />
 		</div>
 	</form:form>
