@@ -17,7 +17,7 @@
 				<li><a href="./autoAddService"> Ajouter un automate</a></li>
 				<li><a href="./autoListAndUpdateService"> Trouver et éditer un automate</a></li>
 				<li><a href="./autoListService"> Lister tous les automates (et éventuellement supprimer)</a></li>
-				<li><a href="./autoListService"> Accéder à l'espace de gestion (maintenance)</a></li>
+				<li><a href="./tableauDeBord"> Accéder à l'espace de gestion (maintenance)</a></li>
 			</ul>
 		</div>
 	</nav>
