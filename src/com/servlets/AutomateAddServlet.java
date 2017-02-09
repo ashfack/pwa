@@ -86,7 +86,7 @@ public class AutomateAddServlet extends HttpServlet {
 			URL url = new URL("http://localhost:8080/automate/cxf/automateservice/automates/add");
 			URLConnection connection = url.openConnection();
 			connection.setDoOutput(true);
-			connection.setRequestProperty("Content-type", "plain/text");
+			connection.setRequestProperty("Content-type", "application/json");
 			OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
 			out.write(json);
 			out.close();

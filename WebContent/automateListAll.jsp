@@ -12,6 +12,7 @@
 <body>
 	<%-- Sample Bean: <%= automate %>
 	<%= request.getAttribute("automates") %> --%>
+	<h1 style="text-align:center"> Liste de tous les automates</h1>
 	<% 
 		Gson gson = new Gson();
 		List<Automate> liste = gson.fromJson((String)request.getAttribute("automates"), 
@@ -19,6 +20,7 @@
 		for(int i = 0; i < liste.size(); i++)
 		{
 			System.out.println("ho ho ho" + liste.get(i));
+			Automate a = liste.get(i);
 		%>	
 		<form method="POST" action="./autoListService">
 			<table>

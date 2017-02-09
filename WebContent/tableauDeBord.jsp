@@ -1,4 +1,5 @@
-<%@page import="com.google.common.reflect.TypeToken"%>
+<%@page import="com.models.Erreur"%>
+<%@page import="com.models.ARapportProduit"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" import="com.models.Rapport,com.google.gson.Gson" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -110,15 +111,34 @@
 			<%
 			System.out.print("hey 1");
 		Gson gson = new Gson();
-		List<Rapport> liste = gson.fromJson((String)request.getAttribute("rapports"), 
-				new TypeToken<List<Rapport>>(){}.getType());
+		List<Rapport> liste = (List<Rapport>) request.getAttribute("rapports");
 		System.out.print("hey 2");
 		for(int i = 0; i < liste.size(); i++)
 		{
-			//System.out.println("ho ho ho" + liste.get(i));
+			System.out.println("ho ho ho" + i);
 		%>	
             <div class="col-sm-3 col-xs-6">
-                <%=liste.get(i).getEtat()%>
+            <%
+                if(liste.get(i).getARapportProduits().toArray().length != 0)
+           		{
+                	System.out.println("I in in A rapport Produits" + i + liste.get(i).getARapportProduits().toArray());
+           		%>
+           		
+                <p><%=((ARapportProduit)liste.get(i).getARapportProduits().toArray()[0]).getQuantite()%></p>
+                <%	
+           		}
+                %>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <%
+                if(liste.get(i).getErreurs().toArray().length != 0)
+           		{
+                	System.out.println("I in in Erreurs" + i + liste.get(i).getErreurs().toArray());
+           		%>
+           			<%= ((Erreur)(liste.get(i).getErreurs().toArray()[0])).getDescription() %>
+           		<%	
+           		}
+                %>
             </div>
 
 	<%

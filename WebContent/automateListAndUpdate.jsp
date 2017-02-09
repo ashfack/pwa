@@ -18,11 +18,11 @@
 		<div class="row">
 			<br />
 			<form:label class="col-md-2" path="numSerie">Numero de serie</form:label>
-			<form:input class="col-md-2" path="numSerie" value="0" />
+			<form:input class="col-md-2" path="numSerie"/>
 		</div>
 		<div class="row">
 			<form:label class="col-md-2" path="type">Type</form:label>
-			<form:input class="col-md-2" path="type" />
+			<form:input class="col-md-2" path="type"/>
 		</div>
 		<div class="row">
 			<form:label class="col-md-2" path="adresse">Adresse</form:label>
