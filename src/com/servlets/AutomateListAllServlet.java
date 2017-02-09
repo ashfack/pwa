@@ -66,11 +66,13 @@ public class AutomateListAllServlet extends HttpServlet {
 			System.out.println("s trimed is : " +s);
 			request.setAttribute("automates", s);
 			this.getServletContext().getRequestDispatcher( "/automateListAll.jsp" ).forward( request, response );
+			return;
 		}
 		catch (Exception e)
 		{
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
 			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
+			return;
 		}
 		
 	}	
@@ -96,11 +98,13 @@ public class AutomateListAllServlet extends HttpServlet {
 			System.out.println("Success to reach the Rest API");
 			in.close();
 			this.getServletContext().getRequestDispatcher( "/home.jsp" ).forward( request, response );
+			return;
 		}
 		catch (Exception e)
 		{
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
 			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
+			return;
 		}
 	}
 }

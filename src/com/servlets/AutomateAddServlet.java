@@ -72,6 +72,7 @@ public class AutomateAddServlet extends HttpServlet {
 		} catch (NumberFormatException | ParseException e1) 
 		{
 			System.out.println(e1.getMessage());
+			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
 			return;
 		}
 		System.out.println(automate);
@@ -94,11 +95,13 @@ public class AutomateAddServlet extends HttpServlet {
 			System.out.println("Success to reach the Rest API");
 			in.close();
 			this.getServletContext().getRequestDispatcher( "/home.jsp" ).forward( request, response );
+			return;
 		}
 		catch (Exception e)
 		{
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
 			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
+			return;
 		}
 	}
 }

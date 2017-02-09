@@ -11,6 +11,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link href="./css/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/automate_custom_template.css" rel="stylesheet">
 	<title>Liste de tous les automates</title>
 </head>
 <body>
@@ -55,7 +56,7 @@
 						name="numSerie"></td>
 				</tr>
 				<tr>
-					<td><input type="submit" value="Supprimer cet automate"></td>
+					<td><input class="btn btn-danger" type="submit" value="Supprimer cet automate"></td>
 				</tr>
 			</table>
 		</form>

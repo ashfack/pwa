@@ -52,6 +52,7 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
     	if (request.getParameter("id") == null)
     	{
 			this.getServletContext().getRequestDispatcher( "/automateListAndUpdate.jsp" ).forward( request, response );
+			return;
     	}
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("UTF-8");
@@ -81,11 +82,13 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 			System.out.println("object that is going to be set" + automate);
 			request.setAttribute("automate", automate);
 			this.getServletContext().getRequestDispatcher( "/automateListAndUpdate.jsp" ).forward( request, response );
+			return;
 		}
 		catch (Exception e)
 		{
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
 			this.getServletContext().getRequestDispatcher( "/home.jsp" ).forward( request, response );
+			return;
 		}
 		
 	}	
@@ -116,6 +119,7 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 		} catch (NumberFormatException | ParseException e1) {
 			e1.printStackTrace();
 			System.out.println("first fail " + e1.getMessage());
+			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
 			return;
 		}
 		System.out.println("ready to update : " +automate);
@@ -139,11 +143,13 @@ public class AutomateListAndUpdateServlet extends HttpServlet {
 			System.out.println("Success to reach the Rest API");
 			in.close();
 			this.getServletContext().getRequestDispatcher( "/home.jsp" ).forward( request, response );
+			return;
 		}
 		catch (Exception e)
 		{
 			System.out.println("Fail to reach the Rest API " +e.getMessage());
 			this.getServletContext().getRequestDispatcher( "/erreur.jsp" ).forward( request, response );
+			return;
 		} 
 
 	}
