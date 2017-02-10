@@ -3,6 +3,7 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Set"%>
+<%@page import="org.apache.commons.lang.StringEscapeUtils"%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="UTF-8" import="com.models.Rapport,com.google.gson.Gson" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <jsp:useBean id="rapport" class="com.models.Rapport" scope="request" />
@@ -93,12 +94,12 @@
 		{
 		%>	
       
-            <div class="col-md-6 col-xs-6">
+            <div class="col-md-6 col-xs-6" style="border: 3px solid #03FFF4;margin-bottom:3px;margin-right:3px;">
             		Rapport id : <%=automateHS.get(i).getId().getRapportId()  %> <br/>
            			Numéro de  automate : <%=automateHS.get(i).getAutomate().getNumSerie()  %> <br/>
-           			Adresse: <%=automateHS.get(i).getAutomate().getAdresse()  %> <br/>
-        			Statut de fonctionnement: <%=automateHS.get(i).getStatutFonctionnement()  %> <br/>
-           			Etat :  <%=automateHS.get(i).getEtat()  %> <br/>
+           			Adresse: <%= StringEscapeUtils.escapeXml(automateHS.get(i).getAutomate().getAdresse()) %> <br/>
+        			Statut de fonctionnement: <%=StringEscapeUtils.escapeXml(automateHS.get(i).getStatutFonctionnement()) %> <br/>
+           			Etat :  <%=StringEscapeUtils.escapeXml(automateHS.get(i).getEtat())%> <br/>
            		
 		<%
 		Erreur[] listER = (Erreur[])automateHS.get(i).getErreurs().toArray(new Erreur[automateHS.get(i).getErreurs().size()]);
@@ -106,7 +107,7 @@
 			{
 				
 		%>
-					Erreur <%= j+1%> : <%=listER[j]%>
+					Erreur <%= j+1%> : <%=StringEscapeUtils.escapeXml(listER[j].toString())%>
 		<% 
 			}
 		%>
@@ -124,19 +125,19 @@
 		for(int i=0;i<automateESetErreur.size();i++)
 		{
 	%>
-			<div class="col-md-6 col-xs-6">
+			<div class="col-md-6 col-xs-6" style="border: 3px solid #03FFF4;margin-bottom:3px;margin-right:3px;">
             		Rapport id : <%=automateESetErreur.get(i).getId().getRapportId()  %> <br/>
            			Numéro de  automate : <%=automateESetErreur.get(i).getAutomate().getNumSerie()  %> <br/>
-           			Adresse: <%=automateESetErreur.get(i).getAutomate().getAdresse()  %> <br/>
-           			Statut de fonctionnement: <%=automateESetErreur.get(i).getStatutFonctionnement()  %> <br/>
-           			Etat :  <%=automateESetErreur.get(i).getEtat()  %>
+           			Adresse: <%=StringEscapeUtils.escapeXml(automateESetErreur.get(i).getAutomate().getAdresse())  %> <br/>
+           			Statut de fonctionnement: <%=StringEscapeUtils.escapeXml(automateESetErreur.get(i).getStatutFonctionnement())  %> <br/>
+           			Etat :  <%=StringEscapeUtils.escapeXml(automateESetErreur.get(i).getEtat())  %>
 		<%
 		Erreur[] listER = (Erreur[])automateESetErreur.get(i).getErreurs().toArray(new Erreur[automateESetErreur.get(i).getErreurs().size()]);
 			for(int j=0;j<listER.length;j++)
 			{
 				
 		%>
-					Erreur <%= j+1%> : <%=listER[j]%>
+					Erreur <%= j+1%> : <%=StringEscapeUtils.escapeXml(listER[j].toString())%>
 		<% 
 			}
 		%>
@@ -147,17 +148,17 @@
 		</div>
 		<div class="row">
 
-            <div class="col-lg-12">
+            <div class="col-lg-12" >
                 <h3 class="page-header">Automates à réapprovisionner</h3>
             </div>
 	<%
 		for(int i=0;i<automateAR.size();i++)
 		{
 	%>
-			<div class="col-md-6 col-xs-6">
+			<div class="col-md-6 col-xs-6" style="border: 3px solid #03FFF4;margin-bottom:3px;margin-right:3px;">
             		Rapport id : <%=automateAR.get(i).getId().getRapportId()  %> <br/>
            			Numéro de  automate : <%=automateAR.get(i).getAutomate().getNumSerie()  %> <br/>
-           			Adresse: <%=automateAR.get(i).getAutomate().getAdresse()  %> <br/>
+           			Adresse: <%=StringEscapeUtils.escapeXml(automateAR.get(i).getAutomate().getAdresse())%> <br/>
            			Météo: <%= temperature %>°C <br/>
            			Seuil du jour: Boissons chaudes (<%=seuilJourBoissonChaudes %>), Boissons fraiches(<%=seuilJourBoissonFraiches %>), Autre(<%=seuilJourAutre%>) <br/>
         			
@@ -167,7 +168,7 @@
 			{
 				
 		%>
-					Produit <%= j+1%> : <%=listAR[j]%>
+					Produit <%= j+1%> : <%=StringEscapeUtils.escapeXml(listAR[j].toString())%>
 		<% 
 			}
 		%>

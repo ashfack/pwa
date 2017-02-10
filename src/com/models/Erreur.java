@@ -1,6 +1,8 @@
 package com.models;
 // Generated 7 f�vr. 2017 11:34:38 by Hibernate Tools 5.2.0.Beta1
 
+import java.text.DateFormat;
+
 import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -54,6 +56,9 @@ public class Erreur implements java.io.Serializable {
 
 	public String toString()
 	{
-		return this.id.getNom()+" ("+this.description+")";
+		DateFormat shortDateFormat = DateFormat.getDateTimeInstance(
+				DateFormat.SHORT,
+				DateFormat.SHORT);
+		return this.id.getNom()+" ("+this.description+") survenue à: "+shortDateFormat.format(this.getId().getDate());
 	}
 }
