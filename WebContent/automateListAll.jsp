@@ -26,7 +26,7 @@
 		for(int i = 0; i < liste.size(); i++)
 		{
 			System.out.println("ho ho ho" + liste.get(i));
-			Automate a = liste.get(i);
+			//Automate a = liste.get(i);
 		%>
 		<form method="POST" action="./autoListService">
 			<table>
@@ -37,10 +37,10 @@
 					<td>Type : <%=StringEscapeUtils.escapeXml(((String)liste.get(i).getType()))%></td>
 				</tr>
 				<tr>
-					<td>Adresse : <%=liste.get(i).getAdresse()%></td>
+					<td>Adresse : <%=StringEscapeUtils.escapeXml(((String)liste.get(i).getAdresse()))%></td>
 				</tr>
 				<tr>
-					<td>Emplacement : <%=liste.get(i).getEmplacement()%></td>
+					<td>Emplacement : <%=StringEscapeUtils.escapeXml(((String)liste.get(i).getEmplacement()))%></td>
 				</tr>
 				<tr>
 					<td>Coordonnees GPS : <%=liste.get(i).getGps()%></td>
@@ -49,7 +49,7 @@
 					<td>Date de derniere intervention : <%=liste.get(i).getDateIntervention()%></td>
 				</tr>
 				<tr>
-					<td>Commentaires : <%=liste.get(i).getCommentaires()%></td>
+					<td>Commentaires : <%=StringEscapeUtils.escapeXml(((String)liste.get(i).getCommentaires()))%></td>
 				</tr>
 				<tr>
 					<td><input type="hidden" value=<%=liste.get(i).getNumSerie() %>
